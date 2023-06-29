@@ -45,7 +45,7 @@ const Login = () => {
       formData.append("emailOrUsername", formRef.current.emailOrUsername.value)
       formData.append("password", formRef.current.password.value)
 
-      axios.post('http://localhost:5000/api/login', formData, { headers: { "Content-Type": "multipart/formdata" } })
+      axios.post('https://mern-project-tj8o.onrender.com/api/login', formData, { headers: { "Content-Type": "multipart/formdata" } })
         .then(res => {
           setLoader(false)
           setErrMsg(res.data.message)
@@ -109,7 +109,7 @@ const Register = () => {
         formData.append("phone", formRef.current.phone.value)
         formData.append("password", formRef.current.password.value)
 
-        axios.post('http://localhost:5000/api/register', formData, { headers: { "Content-Type": "multipart/formdata" } })
+        axios.post('https://mern-project-tj8o.onrender.com/api/register', formData, { headers: { "Content-Type": "multipart/formdata" } })
           .then(res => {
             setErrMsg(res.data.message)
             setLoader(false)

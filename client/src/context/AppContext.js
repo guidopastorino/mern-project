@@ -36,7 +36,7 @@ export default function AppContextProvider({ children }) {
 
     function getPosts() {
         setLoader(true)
-        axios.get('http://localhost:5000/api/get-posts')
+        axios.get('https://mern-project-tj8o.onrender.com/api/get-posts')
             .then(res => {
                 setPosts(res.data.reverse())
                 setLoader(false)
@@ -47,7 +47,7 @@ export default function AppContextProvider({ children }) {
 
     // delete post (id)
     function deletePost(postID) {
-        axios.delete(`http://localhost:5000/api/delete-post/${postID}`)
+        axios.delete(`https://mern-project-tj8o.onrender.com/api/delete-post/${postID}`)
             .then(res => console.log(res))
             .catch(err => console.log(err))
     }
@@ -61,7 +61,7 @@ export default function AppContextProvider({ children }) {
     })
 
     function editPost(postID, newContent) {
-        axios.patch(`http://localhost:5000/api/edit-post/${postID}`, { newContent })
+        axios.patch(`https://mern-project-tj8o.onrender.com/api/edit-post/${postID}`, { newContent })
             .then(res => {
                 console.log(res)
                 setEditPostModal(false)
@@ -76,7 +76,7 @@ export default function AppContextProvider({ children }) {
     const [users, setusers] = useState([])
 
     function getUsers() {
-        axios.get('http://localhost:5000/api/get-users')
+        axios.get('https://mern-project-tj8o.onrender.com/api/get-users')
             .then(res => {
                 setusers(res.data.filter(el => el.username !== user.username))
             })
@@ -85,7 +85,7 @@ export default function AppContextProvider({ children }) {
 
     // delete user
     function deleteUser(username) {
-        axios.delete(`http://localhost:5000/api/delete-user/${username}`)
+        axios.delete(`https://mern-project-tj8o.onrender.com/api/delete-user/${username}`)
             .then(res => {
                 setErrMsg(res.data.message)
                 setTimeout(() => {
@@ -115,7 +115,7 @@ export default function AppContextProvider({ children }) {
     function getPostComments(postID) {
         setPostComments([])
         setLoader(true)
-        axios.get(`http://localhost:5000/api/get-comments/${postID}`)
+        axios.get(`https://mern-project-tj8o.onrender.com/api/get-comments/${postID}`)
             .then(res => {
                 setPostComments(res.data)
                 console.log("postCommentsID", res)

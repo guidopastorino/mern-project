@@ -83,7 +83,7 @@ const CreatePost = () => {
             formData.append("files", el)
         })
 
-        axios.post('http://localhost:5000/api/make-post', formData, { headers: { "Content-Type": "multipart/formdata" } })
+        axios.post('https://mern-project-tj8o.onrender.com/api/make-post', formData, { headers: { "Content-Type": "multipart/formdata" } })
             .then(() => {
                 e.target.reset()
                 setFiles([])
@@ -96,7 +96,7 @@ const CreatePost = () => {
         <section className='flex justify-center items-start p-2 gap-2 border'>
             <div className='shrink-0'>
                 <Link to={'/profile'}>
-                    <img className='hover:brightness-95 active:brightness-90 duration-100 w-10 h-10 object-cover rounded-full' src={`http://localhost:5000/uploads/profile-images/${user.profileImage}`} alt="image" />
+                    <img className='hover:brightness-95 active:brightness-90 duration-100 w-10 h-10 object-cover rounded-full' src={`https://mern-project-tj8o.onrender.com/uploads/profile-images/${user.profileImage}`} alt="image" />
                 </Link>
             </div>
             <form ref={formRef} className='block flex-1 overflow-hidden' onSubmit={e => handleSubmit(e)}>
@@ -148,7 +148,7 @@ export function Post({ version, postID, profileImage, fullname, username, date, 
             <div className='p-2 flex justify-between gap-2 items-center'>
                 <div className='flex gap-2 justify-start items-center'>
                     <Link to={`/${username}`} className='shrink-0'>
-                        <img className='w-10 duration-100 hover:brightness-95 active:brightness-90 h-10 object-cover rounded-full' src={`http://localhost:5000/uploads/profile-images/${profileImage}`} alt="image" />
+                        <img className='w-10 duration-100 hover:brightness-95 active:brightness-90 h-10 object-cover rounded-full' src={`https://mern-project-tj8o.onrender.com/uploads/profile-images/${profileImage}`} alt="image" />
                     </Link>
                     <div className='flex justify-start items-start flex-col'>
                         <Link to={`/${username}`} className='font-medium hover:underline flex flex-start items-baseline gap-1 truncate'>
@@ -260,8 +260,8 @@ const FilesContentContainer = ({ files }) => {
                 {
                     files.map((el, i) => (
                         el.mimetype.startsWith("image")
-                            ? <img key={i} className='snap-always snap-center w-full object-contain shrink-0' src={`http://localhost:5000/uploads/post-files/${el.filename}`} alt={el.originalname} />
-                            : <VideoPostContainer video={`http://localhost:5000/uploads/post-files/${el.filename}`} /> // alt={el.originalname}
+                            ? <img key={i} className='snap-always snap-center w-full object-contain shrink-0' src={`https://mern-project-tj8o.onrender.com/uploads/post-files/${el.filename}`} alt={el.originalname} />
+                            : <VideoPostContainer video={`https://mern-project-tj8o.onrender.com/uploads/post-files/${el.filename}`} /> // alt={el.originalname}
                     ))
 
                 }
@@ -392,7 +392,7 @@ const PostLikeButton = ({ likes, postID }) => {
     }, [])
 
     const makeLike = () => {
-        axios.get(`http://localhost:5000/api/make-like/${user.username}/${postID}`)
+        axios.get(`https://mern-project-tj8o.onrender.com/api/make-like/${user.username}/${postID}`)
             .then(res => {
                 setLiked(res.data.liked)
                 // get all posts
@@ -403,7 +403,7 @@ const PostLikeButton = ({ likes, postID }) => {
 
 
     const getLike = () => {
-        axios.get(`http://localhost:5000/api/get-like/${user.username}/${postID}`)
+        axios.get(`https://mern-project-tj8o.onrender.com/api/get-like/${user.username}/${postID}`)
             .then(res => setLiked(res.data.liked))
             .catch(err => console.log(err))
     }

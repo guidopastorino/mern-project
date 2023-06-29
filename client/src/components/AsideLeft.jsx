@@ -15,7 +15,7 @@ const AsideLeft = () => {
                 <li>
                     <NavLink to={`/${user.username}`} end className={({ isActive }) => (isActive ? 'bg-gray-200 hover:bg-gray-300 active:bg-gray-400 activeLink [&>span]:font-medium [&>div>img]:outline-2 [&>div>img]:outline-black [&>div>img]:outline' : 'unactiveLink') + " " + "flex justify-start items-center gap-2 p-2 hover:bg-gray-200 rounded-lg"}>
                         <div className='w-10 h-10 flex justify-center items-center'>
-                            <img className='w-full h-full object-cover rounded-full' src={`http://localhost:5000/uploads/profile-images/${user.profileImage}`} alt="image" />
+                            <img className='w-full h-full object-cover rounded-full' src={`https://mern-project-tj8o.onrender.com/uploads/profile-images/${user.profileImage}`} alt="image" />
                         </div>
 
                         <span className='truncate'>{user.fullname}</span>

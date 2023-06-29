@@ -55,7 +55,7 @@ const Comments = () => {
         formData.append('comment', formRef.current.comment.value)
 
 
-        axios.post(`http://localhost:5000/api/make-comment/${postCommentsID}`, formData)
+        axios.post(`https://mern-project-tj8o.onrender.com/api/make-comment/${postCommentsID}`, formData)
             .then(res => {
                 getPostComments(postCommentsID)
             })
@@ -98,7 +98,7 @@ const Comments = () => {
 
                             </div>
                             <form onSubmit={(e) => sendComment(e)} ref={formRef} className='w-full w-hite border-t p-2 flex justify-center items-center gap-2 sticky bottom-0 bg-white'>
-                                <img className='w-10 h-10 rounded-full object-cover' src={`http://localhost:5000/uploads/profile-images/${user.profileImage}`} alt="profile image" />
+                                <img className='w-10 h-10 rounded-full object-cover' src={`https://mern-project-tj8o.onrender.com/uploads/profile-images/${user.profileImage}`} alt="profile image" />
                                 <input className='flex-1 p-2 border rounded-sm outline-none text-sm' type="text" name='comment' placeholder='Add a comment' />
                                 <button type='submit'>Send</button>
                             </form>
@@ -129,7 +129,7 @@ const Comment = ({ profileImage, username, date, comment, replies, likes }) => {
     return (
         <div className='flex justify-center items-start gap-2 p-4 border-t'>
             <Link to={`/${username}`} className='shrink-0'>
-                <img className='w-10 h-10 rounded-full object-cover' src={`http://localhost:5000/uploads/profile-images/${profileImage}`} alt='profile image' />
+                <img className='w-10 h-10 rounded-full object-cover' src={`https://mern-project-tj8o.onrender.com/uploads/profile-images/${profileImage}`} alt='profile image' />
             </Link>
             <div className='flex-1 flex justify-start items-start gap-2 flex-col'>
                 <div className='flex justify-center items-center gap-1 text-xs text-slate-600'>
@@ -208,7 +208,7 @@ const ReplyToComment = ({ profileImage, username, date, comment, likes }) => {
     return (
         <div className='flex w-full justify-center items-start gap-2 py-4 border-t'>
             <Link to={`/${username}`} className='shrink-0'>
-                <img className='w-6 h-6 rounded-full object-cover' src={`http://localhost:5000/uploads/profile-images/${profileImage}`} alt='profile image' />
+                <img className='w-6 h-6 rounded-full object-cover' src={`https://mern-project-tj8o.onrender.com/uploads/profile-images/${profileImage}`} alt='profile image' />
             </Link>
             <div className='flex-1 flex justify-start items-start gap-2 flex-col'>
                 <div className='flex justify-center items-center gap-1 text-xs text-slate-600'>
