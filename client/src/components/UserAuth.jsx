@@ -59,8 +59,8 @@ const Login = () => {
 
   return (
     <form ref={formRef} className='flex flex-col justify-center items-center gap-3 w-full' onSubmit={e => handleSubmit(e)}>
-      <input className='w-full p-2 border outline-none border-1 border-gray-400 rounded-lg focus:border-black hover:border-black' type="text" name='emailOrUsername' placeholder='Email or username' autoComplete='off' />
-      <input className='w-full p-2 border outline-none border-1 border-gray-400 rounded-lg focus:border-black hover:border-black' type="password" name='password' placeholder='Password' autoComplete='off' />
+      <input className='w-full p-2 border outline-none border-1 border-gray-400 rounded-lg focus:border-black hover:border-black' type="text" name='emailOrUsername' placeholder='Email or username' />
+      <input className='w-full p-2 border outline-none border-1 border-gray-400 rounded-lg focus:border-black hover:border-black' type="password" name='password' placeholder='Password' />
 
       <span className='text-slate-800 text-center block text-sm'>{errMsg}</span>
 
@@ -95,7 +95,7 @@ const Register = () => {
       } else {
         const formData = new FormData()
 
-        formData.append("profileImage", null || formRef.current.profileImage.files[0])
+        formData.append("profileImage", formRef.current.profileImage.files[0])
         formData.append("fullname", formRef.current.fullname.value)
         formData.append("username", formRef.current.username.value)
         formData.append("email", formRef.current.email.value)
@@ -124,17 +124,17 @@ const Register = () => {
   return (
     <>
       <form ref={formRef} className='flex flex-col justify-center items-center gap-3 w-full' onSubmit={e => handleSubmit(e)}>
-        <input className='w-full p-2 border outline-none border-1 border-gray-400 rounded-lg focus:border-black hover:border-black' type="text" name='fullname' placeholder='Fullname' autoComplete='off' />
+        <input className='w-full p-2 border outline-none border-1 border-gray-400 rounded-lg focus:border-black hover:border-black' type="text" name='fullname' placeholder='Fullname' />
 
-        <input className='w-full p-2 border outline-none border-1 border-gray-400 rounded-lg focus:border-black hover:border-black' type="text" name='username' placeholder='Username' autoComplete='off' />
+        <input className='w-full p-2 border outline-none border-1 border-gray-400 rounded-lg focus:border-black hover:border-black' type="text" name='username' placeholder='Username' />
 
-        <input className='w-full p-2 border outline-none border-1 border-gray-400 rounded-lg focus:border-black hover:border-black' type="email" name='email' placeholder='Email' autoComplete='off' />
+        <input className='w-full p-2 border outline-none border-1 border-gray-400 rounded-lg focus:border-black hover:border-black' type="email" name='email' placeholder='Email' />
 
-        <input className='w-full p-2 border outline-none border-1 border-gray-400 rounded-lg focus:border-black hover:border-black' type="text" name='phone' placeholder='Phone' autoComplete='off' />
+        <input className='w-full p-2 border outline-none border-1 border-gray-400 rounded-lg focus:border-black hover:border-black' type="text" name='phone' placeholder='Phone' />
 
-        <input className='w-full p-2 border outline-none border-1 border-gray-400 rounded-lg focus:border-black hover:border-black' type="password" name='password' placeholder='Password' autoComplete='off' />
+        <input className='w-full p-2 border outline-none border-1 border-gray-400 rounded-lg focus:border-black hover:border-black' type="password" name='password' placeholder='Password' />
 
-        <input className='w-full p-2 border outline-none border-1 border-gray-400 rounded-lg focus:border-black hover:border-black' type="password" name='passwordRepeat' placeholder='Repeat password' autoComplete='off' />
+        <input className='w-full p-2 border outline-none border-1 border-gray-400 rounded-lg focus:border-black hover:border-black' type="password" name='passwordRepeat' placeholder='Repeat password' />
 
         <input name='profileImage' hidden type="file" onChange={e => handleProfileImage(e)} accept='image/*' />
 
