@@ -5,9 +5,13 @@
   scroll-behavior: smooth;
 }
 
-/* *::-webkit-scrollbar{
+*::-webkit-scrollbar{
   display: none;
-} */
+}
+
+#root, body{
+  transition: all .3s;
+}
 
 body {
   overflow-x: hidden;

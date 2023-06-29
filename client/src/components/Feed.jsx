@@ -95,7 +95,7 @@ const CreatePost = () => {
     return (
         <section className='flex justify-center items-start p-2 gap-2 border'>
             <div className='shrink-0'>
-                <Link to={'/profile'}>
+                <Link to={`/${user.username}`}>
                     <img className='hover:brightness-95 active:brightness-90 duration-100 w-10 h-10 object-cover rounded-full' src={`https://mern-project-tj8o.onrender.com/uploads/profile-images/${user.profileImage}`} alt="image" />
                 </Link>
             </div>

@@ -8,11 +8,11 @@ const UserAuth = () => {
   const [logAuth, setLogAuth] = useState(true)
 
   return (
-    <div className='h-[100dvh] flex justify-center items-center'>
+    <div className='h-[100dvh] flex justify-center items-start'>
       <div className='w-full max-w-[400px] shadow-lg border rounded-lg mx-auto p-2'>
         <div className='w-full grid grid-cols-2 w-full mb-5 relative'>
-          <div onClick={() => setLogAuth(true)} className={`${logAuth && "bg-gray-300"} rounded-lg duration-100 cursor-pointer user-select-none hover:bg-gray-300 active:bg-gray-400 text-center p-3`}>Login</div>
-          <div onClick={() => setLogAuth(false)} className={`${!logAuth && "bg-gray-300"} rounded-lg duration-100 cursor-pointer user-select-none hover:bg-gray-300 active:bg-gray-400 text-center p-3`}>Register</div>
+          <div onClick={() => setLogAuth(true)} className={`${logAuth && "bg-gray-300"} rounded-lg duration-100 cursor-pointer user-select-none active:bg-gray-400 text-center p-3`}>Login</div>
+          <div onClick={() => setLogAuth(false)} className={`${!logAuth && "bg-gray-300"} rounded-lg duration-100 cursor-pointer user-select-none active:bg-gray-400 text-center p-3`}>Register</div>
         </div>
         {logAuth && <Login />}
         {!logAuth && <Register />}
@@ -26,7 +26,7 @@ export default UserAuth
 const Login = () => {
 
   
-  const { logged, setLogged, errMsg, setErrMsg, loader, setLoader } = useContext(AppContext)
+  const { logged, setLogged, errMsg, setErrMsg } = useContext(AppContext)
   
   const [password, setPassword] = useState(false)
   const formRef = useRef()
@@ -38,8 +38,6 @@ const Login = () => {
     if ((formRef.current.emailOrUsername.value || formRef.current.password.value) === "") {
       setErrMsg("Completa los campos vacios")
     } else {
-      setLoader(true)
-      
       const formData = new FormData()
 
       formData.append("emailOrUsername", formRef.current.emailOrUsername.value)
@@ -47,7 +45,6 @@ const Login = () => {
 
       axios.post('https://mern-project-tj8o.onrender.com/api/login', formData, { headers: { "Content-Type": "multipart/formdata" } })
         .then(res => {
-          setLoader(false)
           setErrMsg(res.data.message)
           setLogged(res.data.logged)
           localStorage.setItem("logged", JSON.stringify(res.data.logged))
@@ -55,7 +52,6 @@ const Login = () => {
           window.location.reload()
         })
         .catch(err => {
-          setLoader(false)
           setErrMsg(err.response.data.message)
         })
     }
@@ -68,8 +64,6 @@ const Login = () => {
 
       <span className='text-slate-800 text-center block text-sm'>{errMsg}</span>
 
-      {loader && <Loader />}
-
       <button type='submit'>Login</button>
     </form>
   )
@@ -78,7 +72,7 @@ const Login = () => {
 
 const Register = () => {
 
-  const { errMsg, setErrMsg, loader, setLoader } = useContext(AppContext)
+  const { errMsg, setErrMsg } = useContext(AppContext)
 
   const formRef = useRef()
 
@@ -99,7 +93,6 @@ const Register = () => {
       if (formRef.current.password.value !== formRef.current.passwordRepeat.value) {
         setErrMsg("Las contraseñas no coinciden. Por favor, intenta de nuevo.")
       } else {
-        setLoader(true)
         const formData = new FormData()
 
         formData.append("profileImage", null || formRef.current.profileImage.files[0])
@@ -112,13 +105,11 @@ const Register = () => {
         axios.post('https://mern-project-tj8o.onrender.com/api/register', formData, { headers: { "Content-Type": "multipart/formdata" } })
           .then(res => {
             setErrMsg(res.data.message)
-            setLoader(false)
             formRef.current.reset()
             setObjectURL("https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png")
           })
           .catch(err => {
             setErrMsg(err.message + "." + " Asegúrate de haber elegido una imagen de perfil.")
-            setLoader(false)
           })
       }
     }
@@ -160,8 +151,6 @@ const Register = () => {
         </div>
 
         <span className='text-slate-800 text-center block text-sm'>{errMsg}</span>
-
-        {loader && <Loader />}
 
         <button type='submit'>Register</button>
       </form>
