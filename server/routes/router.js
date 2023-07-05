@@ -270,10 +270,6 @@ router.post('/api/make-comment/:postID', upload.none(), async (req, res) => {
         const { postID } = req.params
         const { profileImage, username, comment } = req.body
 
-        const postToComment = await Post.findOne({ _id: postID })
-
-        if (!postToComment) return res.status(404).json({ message: "No se encontró el post" })
-
         const newComment = new Comment({
             profileImage,
             username,
@@ -283,9 +279,13 @@ router.post('/api/make-comment/:postID', upload.none(), async (req, res) => {
             likes: []
         })
 
-        postToComment.comments.push(newComment)
+        updatedPostComments = await Post.findOneAndUpdate(
+            { _id: postID },
+            { $pull: { comments: newComment } },
+            { new: false }
+        );
 
-        await postToComment.save()
+        if (!updatedPostComments) return res.status(404).json({ message: "No se encontró el post" })
 
         res.status(200).json(newComment)
     } catch (error) {
@@ -305,8 +305,6 @@ router.post('/api/make-comment-reply/:postID/:commentID', async (req, res) => {
         console.log(error)
     }
 })
-
-
 
 
 

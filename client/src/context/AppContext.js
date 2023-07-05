@@ -48,8 +48,14 @@ export default function AppContextProvider({ children }) {
     // delete post (id)
     function deletePost(postID) {
         axios.delete(`https://mern-project-tj8o.onrender.com/api/delete-post/${postID}`)
-            .then(res => console.log(res))
-            .catch(err => console.log(err))
+            .then(res => {
+                setLoader(false)
+                getPosts()
+            })
+            .catch(err => {
+                setLoader(false)
+                getPosts()
+            })
     }
 
 
@@ -107,6 +113,9 @@ export default function AppContextProvider({ children }) {
 
     const [postCommentsID, setPostCommentsID] = useState(null)
 
+    const [commentsLoader, setCommentsLoader] = useState(false)
+
+
     // llamar a la funcion cada vez que se renderiza el modal
     useEffect(() => {
         getPostComments(postCommentsID)
@@ -114,12 +123,12 @@ export default function AppContextProvider({ children }) {
 
     function getPostComments(postID) {
         setPostComments([])
-        setLoader(true)
+        setCommentsLoader(true)
         axios.get(`https://mern-project-tj8o.onrender.com/api/get-comments/${postID}`)
             .then(res => {
                 setPostComments(res.data)
                 console.log("postCommentsID", res)
-                setLoader(false)
+                setCommentsLoader(false)
             })
             .catch(err => console.log(err))
     }
@@ -141,7 +150,7 @@ export default function AppContextProvider({ children }) {
 
 
     return (
-        <AppContext.Provider value={{ user, setUser, logged, setLogged, posts, setPosts, loader, setLoader, getPosts, deletePost, errMsg, setErrMsg, searchBar, setSearchBar, copyToClipboard, editPostModal, setEditPostModal, editPost, newPostOptions, setNewPostOptions, volume, setVolume, getUsers, users, setusers, deleteUser, commentsModal, setCommentsModal, postComments, setPostComments, getPostComments, postCommentsID, setPostCommentsID }}>
+        <AppContext.Provider value={{ user, setUser, logged, setLogged, posts, setPosts, loader, setLoader, getPosts, deletePost, errMsg, setErrMsg, searchBar, setSearchBar, copyToClipboard, editPostModal, setEditPostModal, editPost, newPostOptions, setNewPostOptions, volume, setVolume, getUsers, users, setusers, deleteUser, commentsModal, setCommentsModal, postComments, setPostComments, getPostComments, postCommentsID, setPostCommentsID, commentsLoader, setCommentsLoader }}>
             {children}
         </AppContext.Provider>
     )

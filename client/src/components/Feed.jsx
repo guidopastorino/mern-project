@@ -184,9 +184,6 @@ export function Post({ version, postID, profileImage, fullname, username, date, 
                                             }}>Edit post content</li>
                                             <li className='hover:bg-gray-200 active:bg-gray-300' onClick={() => {
                                                 deletePost(postID)
-                                                setTimeout(() => {
-                                                    getPosts()
-                                                }, 50);
                                             }}>Delete</li>
                                         </>
                                         : <>

@@ -15,7 +15,8 @@ const Comments = () => {
 
     const formRef = useRef()
 
-    const { loader, commentsModal, setCommentsModal, postComments, setPostComments, getPostComments, user, postCommentsID, setPostCommentsID } = useContext(AppContext)
+    const { commentsModal, setCommentsModal, postComments, setPostComments, getPostComments, user, postCommentsID, setPostCommentsID, commentsLoader, setCommentsLoader } = useContext(AppContext)
+
 
 
     // 
@@ -77,10 +78,10 @@ const Comments = () => {
                                 <button ref={btnModalRef} onClick={() => setCommentsModal(!commentsModal)} className='p-1 rounded-sm hover:bg-gray-200 active:bg-gray-300 text-xl'><IoMdClose /></button>
                             </div>
                             <div>
-                                {loader && <CommentsLoader />}
+                                {commentsLoader && <CommentsLoader />}
 
                                 {
-                                    !loader && postComments && postComments.length < 1
+                                    !commentsLoader && postComments && postComments.length < 1
                                         ? <span className='text-center block text-slate-600 p-5'>No comments yet</span>
                                         : postComments.map((el, i) => (
                                             <Comment
@@ -118,8 +119,6 @@ export default Comments
 const Comment = ({ profileImage, username, date, comment, replies, likes }) => {
 
     const [showReplies, setShowReplies] = useState(false)
-
-    const [loader, setLoader] = useState(false)
 
     const { user, copyToClipboard } = useContext(AppContext)
 
