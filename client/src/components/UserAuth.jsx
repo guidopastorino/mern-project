@@ -26,7 +26,7 @@ export default UserAuth
 const Login = () => {
 
   
-  const { logged, setLogged, errMsg, setErrMsg } = useContext(AppContext)
+  const { logged, setLogged, errMsg, setErrMsg, SERVER_URL} = useContext(AppContext)
   
   const [password, setPassword] = useState(false)
   const formRef = useRef()
@@ -43,7 +43,7 @@ const Login = () => {
       formData.append("emailOrUsername", formRef.current.emailOrUsername.value)
       formData.append("password", formRef.current.password.value)
 
-      axios.post('https://mern-project-tj8o.onrender.com/api/login', formData, { headers: { "Content-Type": "multipart/formdata" } })
+      axios.post(`${SERVER_URL}/api/login`, formData, { headers: { "Content-Type": "multipart/formdata" } })
         .then(res => {
           setErrMsg(res.data.message)
           setLogged(res.data.logged)
@@ -72,7 +72,7 @@ const Login = () => {
 
 const Register = () => {
 
-  const { errMsg, setErrMsg } = useContext(AppContext)
+  const { errMsg, setErrMsg, SERVER_URL } = useContext(AppContext)
 
   const formRef = useRef()
 
@@ -102,7 +102,7 @@ const Register = () => {
         formData.append("phone", formRef.current.phone.value)
         formData.append("password", formRef.current.password.value)
 
-        axios.post('https://mern-project-tj8o.onrender.com/api/register', formData, { headers: { "Content-Type": "multipart/formdata" } })
+        axios.post(`${SERVER_URL}/api/register`, formData, { headers: { "Content-Type": "multipart/formdata" } })
           .then(res => {
             setErrMsg(res.data.message)
             formRef.current.reset()

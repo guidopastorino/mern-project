@@ -279,13 +279,13 @@ router.post('/api/make-comment/:postID', upload.none(), async (req, res) => {
             likes: []
         })
 
-        updatedPostComments = await Post.findOneAndUpdate(
+        const updatedPostComments = await Post.findOneAndUpdate(
             { _id: postID },
             { $pull: { comments: newComment } },
             { new: false }
         );
 
-        if (!updatedPostComments) return res.status(404).json({ message: "No se encontró el post" })
+        if (!updatedPostComments) return res.status(404).json({ message: "No posts found." })
 
         res.status(200).json(newComment)
     } catch (error) {

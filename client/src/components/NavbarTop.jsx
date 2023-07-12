@@ -84,7 +84,7 @@ export default NavbarTop
 
 const SearchBar = () => {
 
-    const { searchBar, setSearchBar } = useContext(AppContext)
+    const { searchBar, setSearchBar, SERVER_URL } = useContext(AppContext)
 
     const searchInputRef = useRef()
     const searchResultsRef = useRef()
@@ -114,7 +114,7 @@ const SearchBar = () => {
         if (searchValue.length > 0) {
             setLoaderMsg("Finding results...")
 
-            axios.get(`https://mern-project-tj8o.onrender.com/api/search/${searchValue}`)
+            axios.get(`${SERVER_URL}/api/search/${searchValue}`)
                 .then(res => {
                     setUsers(res.data)
                     setLoaderMsg("")
@@ -156,7 +156,7 @@ const SearchBar = () => {
                         ? <p className='p-2 text-slate-700 text-sm font-medium'>No users found</p>
                         : (users.map((el, i) => (
                             <Link className='flex justify-start items-center gap-2 p-2 hover:bg-gray-200 active:bg-gray-300' to={`/${el.username}`} key={i}>
-                                <img className='w-10 h-10 object-cover rounded-full' src={`https://mern-project-tj8o.onrender.com/uploads/profile-images/${el.profileImage}`} alt={el.username} />
+                                <img className='w-10 h-10 object-cover rounded-full' src={`${SERVER_URL}/uploads/profile-images/${el.profileImage}`} alt={el.username} />
                                 <div className='flex flex-col justify-start'>
                                     <span className='text-slate-700 text-sm font-medium'>{el.fullname}</span>
                                     <span className='text-slate-600 text-sm'>@{el.username}</span>

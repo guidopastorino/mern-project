@@ -56,7 +56,7 @@ const Feed = () => {
 export default Feed
 
 const CreatePost = () => {
-    const { user, posts, setPosts, loader, setLoader, getPosts } = useContext(AppContext)
+    const { user, posts, SERVER_URL, setPosts, loader, setLoader, getPosts } = useContext(AppContext)
 
 
     const SliderRef = useRef()
@@ -83,7 +83,7 @@ const CreatePost = () => {
             formData.append("files", el)
         })
 
-        axios.post('https://mern-project-tj8o.onrender.com/api/make-post', formData, { headers: { "Content-Type": "multipart/formdata" } })
+        axios.post(`${SERVER_URL}/api/make-post`, formData, { headers: { "Content-Type": "multipart/formdata" } })
             .then(() => {
                 e.target.reset()
                 setFiles([])
@@ -96,7 +96,7 @@ const CreatePost = () => {
         <section className='flex justify-center items-start p-2 gap-2 border'>
             <div className='shrink-0'>
                 <Link to={`/${user.username}`}>
-                    <img className='hover:brightness-95 active:brightness-90 duration-100 w-10 h-10 object-cover rounded-full' src={`https://mern-project-tj8o.onrender.com/uploads/profile-images/${user.profileImage}`} alt="image" />
+                    <img className='hover:brightness-95 active:brightness-90 duration-100 w-10 h-10 object-cover rounded-full' src={`${SERVER_URL}/uploads/profile-images/${user.profileImage}`} alt="image" />
                 </Link>
             </div>
             <form ref={formRef} className='block flex-1 overflow-hidden' onSubmit={e => handleSubmit(e)}>
@@ -140,7 +140,7 @@ const CreatePost = () => {
 
 export function Post({ version, postID, profileImage, fullname, username, date, description, filesContent, likes, comments, views, saved }) {
 
-    const { user, deletePost, getPosts, copyToClipboard, editPostModal, setEditPostModal, newPostOptions, setNewPostOptions, commentsModal, setCommentsModal, postCommentsID, setPostCommentsID } = useContext(AppContext)
+    const { user, deletePost, getPosts, SERVER_URL, copyToClipboard, editPostModal, setEditPostModal, newPostOptions, setNewPostOptions, commentsModal, setCommentsModal, postCommentsID, setPostCommentsID } = useContext(AppContext)
 
 
     return (
@@ -148,7 +148,7 @@ export function Post({ version, postID, profileImage, fullname, username, date, 
             <div className='p-2 flex justify-between gap-2 items-center'>
                 <div className='flex gap-2 justify-start items-center'>
                     <Link to={`/${username}`} className='shrink-0'>
-                        <img className='w-10 duration-100 hover:brightness-95 active:brightness-90 h-10 object-cover rounded-full' src={`https://mern-project-tj8o.onrender.com/uploads/profile-images/${profileImage}`} alt="image" />
+                        <img className='w-10 duration-100 hover:brightness-95 active:brightness-90 h-10 object-cover rounded-full' src={`${SERVER_URL}/uploads/profile-images/${profileImage}`} alt="image" />
                     </Link>
                     <div className='flex justify-start items-start flex-col'>
                         <Link to={`/${username}`} className='font-medium hover:underline flex flex-start items-baseline gap-1 truncate'>
@@ -231,6 +231,8 @@ const FilesContentContainer = ({ files }) => {
 
     const SliderRef = useRef()
 
+    const { SERVER_URL } = useContext(AppContext)
+
     const [btnLeft, setBtnLeft] = useState(false)
     const [btnRight, setBtnRight] = useState(true)
 
@@ -257,8 +259,8 @@ const FilesContentContainer = ({ files }) => {
                 {
                     files.map((el, i) => (
                         el.mimetype.startsWith("image")
-                            ? <img key={i} className='snap-always snap-center w-full object-contain shrink-0' src={`https://mern-project-tj8o.onrender.com/uploads/post-files/${el.filename}`} alt={el.originalname} />
-                            : <VideoPostContainer video={`https://mern-project-tj8o.onrender.com/uploads/post-files/${el.filename}`} /> // alt={el.originalname}
+                            ? <img key={i} className='snap-always snap-center w-full object-contain shrink-0' src={`${SERVER_URL}/uploads/post-files/${el.filename}`} alt={el.originalname} />
+                            : <VideoPostContainer video={`${SERVER_URL}/uploads/post-files/${el.filename}`} /> // alt={el.originalname}
                     ))
 
                 }
@@ -380,7 +382,7 @@ const VideoPostContainer = ({ video }) => {
 // like button
 const PostLikeButton = ({ likes, postID }) => {
 
-    const { user, getPosts } = useContext(AppContext)
+    const { user, getPosts, SERVER_URL } = useContext(AppContext)
 
     const [liked, setLiked] = useState(false)
 
@@ -389,7 +391,7 @@ const PostLikeButton = ({ likes, postID }) => {
     }, [])
 
     const makeLike = () => {
-        axios.get(`https://mern-project-tj8o.onrender.com/api/make-like/${user.username}/${postID}`)
+        axios.get(`${SERVER_URL}/api/make-like/${user.username}/${postID}`)
             .then(res => {
                 setLiked(res.data.liked)
                 // get all posts
@@ -400,7 +402,7 @@ const PostLikeButton = ({ likes, postID }) => {
 
 
     const getLike = () => {
-        axios.get(`https://mern-project-tj8o.onrender.com/api/get-like/${user.username}/${postID}`)
+        axios.get(`${SERVER_URL}/api/get-like/${user.username}/${postID}`)
             .then(res => setLiked(res.data.liked))
             .catch(err => console.log(err))
     }

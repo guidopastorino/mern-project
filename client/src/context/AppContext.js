@@ -11,6 +11,11 @@ export default function AppContextProvider({ children }) {
     const [logged, setLogged] = useState(false)
 
 
+    // or .env file
+    // const SERVER_URL = "https://mern-project-tj8o.onrender.com"
+    const SERVER_URL = "http://localhost:5000"
+
+
     const [loader, setLoader] = useState(false)
     const [errMsg, setErrMsg] = useState(false)
 
@@ -36,7 +41,7 @@ export default function AppContextProvider({ children }) {
 
     function getPosts() {
         setLoader(true)
-        axios.get('https://mern-project-tj8o.onrender.com/api/get-posts')
+        axios.get(`${SERVER_URL}/api/get-posts`)
             .then(res => {
                 setPosts(res.data.reverse())
                 setLoader(false)
@@ -47,7 +52,7 @@ export default function AppContextProvider({ children }) {
 
     // delete post (id)
     function deletePost(postID) {
-        axios.delete(`https://mern-project-tj8o.onrender.com/api/delete-post/${postID}`)
+        axios.delete(`${SERVER_URL}/api/delete-post/${postID}`)
             .then(res => {
                 setLoader(false)
                 getPosts()
@@ -67,7 +72,7 @@ export default function AppContextProvider({ children }) {
     })
 
     function editPost(postID, newContent) {
-        axios.patch(`https://mern-project-tj8o.onrender.com/api/edit-post/${postID}`, { newContent })
+        axios.patch(`${SERVER_URL}/api/edit-post/${postID}`, { newContent })
             .then(res => {
                 console.log(res)
                 setEditPostModal(false)
@@ -82,7 +87,7 @@ export default function AppContextProvider({ children }) {
     const [users, setusers] = useState([])
 
     function getUsers() {
-        axios.get('https://mern-project-tj8o.onrender.com/api/get-users')
+        axios.get(`${SERVER_URL}/api/get-users`)
             .then(res => {
                 setusers(res.data.filter(el => el.username !== user.username))
             })
@@ -91,7 +96,7 @@ export default function AppContextProvider({ children }) {
 
     // delete user
     function deleteUser(username) {
-        axios.delete(`https://mern-project-tj8o.onrender.com/api/delete-user/${username}`)
+        axios.delete(`${SERVER_URL}/api/delete-user/${username}`)
             .then(res => {
                 setErrMsg(res.data.message)
                 setTimeout(() => {
@@ -124,7 +129,7 @@ export default function AppContextProvider({ children }) {
     function getPostComments(postID) {
         setPostComments([])
         setCommentsLoader(true)
-        axios.get(`https://mern-project-tj8o.onrender.com/api/get-comments/${postID}`)
+        axios.get(`${SERVER_URL}/api/get-comments/${postID}`)
             .then(res => {
                 setPostComments(res.data)
                 console.log("postCommentsID", res)
@@ -150,7 +155,7 @@ export default function AppContextProvider({ children }) {
 
 
     return (
-        <AppContext.Provider value={{ user, setUser, logged, setLogged, posts, setPosts, loader, setLoader, getPosts, deletePost, errMsg, setErrMsg, searchBar, setSearchBar, copyToClipboard, editPostModal, setEditPostModal, editPost, newPostOptions, setNewPostOptions, volume, setVolume, getUsers, users, setusers, deleteUser, commentsModal, setCommentsModal, postComments, setPostComments, getPostComments, postCommentsID, setPostCommentsID, commentsLoader, setCommentsLoader }}>
+        <AppContext.Provider value={{ user, setUser, logged, setLogged, SERVER_URL, posts, setPosts, loader, setLoader, getPosts, deletePost, errMsg, setErrMsg, searchBar, setSearchBar, copyToClipboard, editPostModal, setEditPostModal, editPost, newPostOptions, setNewPostOptions, volume, setVolume, getUsers, users, setusers, deleteUser, commentsModal, setCommentsModal, postComments, setPostComments, getPostComments, postCommentsID, setPostCommentsID, commentsLoader, setCommentsLoader }}>
             {children}
         </AppContext.Provider>
     )
