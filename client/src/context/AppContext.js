@@ -12,8 +12,7 @@ export default function AppContextProvider({ children }) {
 
 
     // or .env file
-    // const SERVER_URL = "https://mern-project-tj8o.onrender.com"
-    const SERVER_URL = "http://localhost:5000"
+    const SERVER_URL = "https://mern-project-tj8o.onrender.com"
 
 
     const [loader, setLoader] = useState(false)
